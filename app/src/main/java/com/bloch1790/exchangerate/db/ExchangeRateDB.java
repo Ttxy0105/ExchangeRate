@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.bloch1790.exchangerate.model.Country;
 
@@ -51,7 +52,7 @@ public class ExchangeRateDB {
             ContentValues values = new ContentValues();
             values.put("country_name",country.getName());
             values.put("country_code",country.getCode());
-            db.insert("Country", null, values);
+            db.insert("Currency", null, values);
         }
     }
 
@@ -60,13 +61,14 @@ public class ExchangeRateDB {
      */
     public List<Country> loadCountry() {
         List<Country> list = new ArrayList<Country>();
-        Cursor cursor = db.query("Country", null, null, null, null, null, null);
+        Cursor cursor = db.query("Currency", null, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 Country country = new Country();
                 country.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 country.setName(cursor.getString(cursor.getColumnIndex("country_name")));
                 country.setCode(cursor.getString(cursor.getColumnIndex("country_code")));
+                Log.i("TAG", country.getName());
                 list.add(country);
             } while (cursor.moveToNext());
         }

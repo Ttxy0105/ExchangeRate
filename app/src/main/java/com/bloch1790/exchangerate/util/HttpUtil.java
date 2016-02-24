@@ -10,6 +10,9 @@ import java.net.URL;
  * Created by Administrator on 2016/2/25 0025.
  */
 public class HttpUtil {
+
+    public static final String KEY = "?key=6f359ac00b45b7bb976ae50f2ba0f70f";
+    public static final String ADDRESS = "http://op.juhe.cn/onebox/exchange/";
     public static void sendHttpRequest(final String address, final HttpCallbackListener listener) {
         new Thread(new Runnable() {
             @Override
@@ -29,7 +32,6 @@ public class HttpUtil {
                         response.append(line);
                     }
                     if (listener != null) {
-                        //回调onFinish方法
                         listener.onFinish(response.toString());
                     }
                 } catch (Exception e) {
