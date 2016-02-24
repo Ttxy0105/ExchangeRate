@@ -28,9 +28,10 @@ public class Utility {
                         Country country = new Country();
                         country.setName(object.getString("name"));
                         country.setCode(object.getString("code"));
-                        Log.i("TAG",object.getString("name"));
+
                         exchangeRateDB.saveCountry(country);
                     }
+                    Log.i("TAG","数据库存储成功");
                     return true;
                 }
             } catch (Exception e) {

@@ -54,6 +54,7 @@ public class ExchangeRateDB {
             values.put("country_code",country.getCode());
             db.insert("Currency", null, values);
         }
+//        Log.i("TAG","第一次存储");
     }
 
     /**
@@ -68,13 +69,14 @@ public class ExchangeRateDB {
                 country.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 country.setName(cursor.getString(cursor.getColumnIndex("country_name")));
                 country.setCode(cursor.getString(cursor.getColumnIndex("country_code")));
-                Log.i("TAG", country.getName());
+//                Log.i("TAG", country.getName());
                 list.add(country);
             } while (cursor.moveToNext());
         }
         if (cursor != null) {
             cursor.close();
         }
+        Log.i("TAG","数据库读取成功");
         return list;
     }
 }
