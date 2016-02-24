@@ -31,11 +31,11 @@ public class CountryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.countrylayout);
-        exchangeRateDB = ExchangeRateDB.getInstance(this);
-        queryList(code);
         listView = (ListView) findViewById(R.id.listView);
         adapter = new CountryAdapter(this, data_list);
         listView.setAdapter(adapter);
+        exchangeRateDB = ExchangeRateDB.getInstance(this);
+        queryList(code);
     }
 
     @Override
