@@ -1,8 +1,11 @@
 package com.bloch1790.exchangerate.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,13 +39,23 @@ public class CountryActivity extends Activity {
         listView.setAdapter(adapter);
         exchangeRateDB = ExchangeRateDB.getInstance(this);
         queryList(code);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Country country = data_list.get((int) id);
+                String name = country.getName();
+                Log.i("TAG", "选择了" + country.getName());
+                String code = country.getCode();
+                Intent intent_country = new Intent();
+                intent_country.putExtra("name", name);
+                intent_country.putExtra("code", code);
+                setResult(RESULT_OK,intent_country);
+                finish();
+            }
+        });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-    }
 
     private void queryList(final String code) {
         Log.i("TAG","查询");

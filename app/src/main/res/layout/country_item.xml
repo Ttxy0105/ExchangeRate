@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/country_name"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:text="中国"
         android:textSize="20sp"
         android:gravity="center"
@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/country_code"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:text="CNY"
         android:gravity="center"
         android:layout_weight="1" />

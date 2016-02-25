@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ExchangeRate</string>
+    <string name="title_activity_currency_main">Currency_main</string>
 </resources>
