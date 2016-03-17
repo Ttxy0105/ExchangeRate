@@ -1,7 +1,6 @@
 package com.bloch1790.exchangerate.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ public class CountryAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        Log.i("TAG",list.size()+"");
+        //Log.i("TAG",list.size()+"");
         return list.size();
     }
 
@@ -54,7 +53,7 @@ public class CountryAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Log.i("TAG", getItem(position).getName());
+        //Log.i("TAG", getItem(position).getName());
         holder.name.setText(getItem(position).getName());
         holder.code.setText(getItem(position).getCode());
         return convertView;

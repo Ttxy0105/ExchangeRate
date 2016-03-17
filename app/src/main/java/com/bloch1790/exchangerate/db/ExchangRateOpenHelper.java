@@ -15,6 +15,8 @@ public class ExchangRateOpenHelper extends SQLiteOpenHelper {
             "country_name text," +
             "country_code text)";
 
+
+
     public ExchangRateOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
