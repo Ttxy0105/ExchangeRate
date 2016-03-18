@@ -1,8 +1,6 @@
 package com.bloch1790.exchangerate.model;
 
-/**
- * Created by Administrator on 2016/2/24 0024.
- */
+
 public class Country {
     private int id;
     private String name;

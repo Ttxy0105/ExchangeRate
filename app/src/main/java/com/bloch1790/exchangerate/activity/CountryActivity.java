@@ -20,9 +20,7 @@ import com.bloch1790.exchangerate.util.Utility;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/2/25 0025.
- */
+
 public class CountryActivity extends Activity {
     private ListView listView;
     private CountryAdapter adapter;

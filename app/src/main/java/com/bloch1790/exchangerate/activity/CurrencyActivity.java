@@ -170,11 +170,6 @@ public class CurrencyActivity extends Activity {
     }
 
 
-    /*@Override
-    protected void onResume() {
-        super.onResume();
-        initView();
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
