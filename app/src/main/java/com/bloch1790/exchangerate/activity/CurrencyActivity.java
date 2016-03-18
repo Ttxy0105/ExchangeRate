@@ -4,13 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bloch1790.exchangerate.R;
+import com.bloch1790.exchangerate.util.HttpCallbackListener;
+import com.bloch1790.exchangerate.util.HttpUtil;
+import com.bloch1790.exchangerate.util.Utility;
 
 import java.lang.reflect.Field;
 
@@ -28,7 +35,27 @@ public class CurrencyActivity extends Activity {
     int x1, x2;
     SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-
+    private EditText count01;
+    private EditText count02;
+    private String code_net = "currency";
+    private Button btn_exchange;
+    public Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    String exchangeResult = (String) msg.obj;
+                    String num = count01.getText().toString();
+                    int num_02 = Integer.parseInt(num);
+                    double num_01 = Double.parseDouble(exchangeResult);
+                    double a = num_02*num_01;
+                    int b=(int)(a*100);
+                    double num_result=(double)b /100;
+                    count02.setText(num_result+"");
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +72,13 @@ public class CurrencyActivity extends Activity {
         view_02 = (MyLinearLayout) findViewById(R.id.money_02);
         name01 = (TextView) view_01.findViewById(R.id.name);
         name02 = (TextView) view_02.findViewById(R.id.name);
+        count01 = (EditText)view_01.findViewById(R.id.count);
+        count02 = (EditText)view_02.findViewById(R.id.count);
         code01 = (TextView) view_01.findViewById(R.id.code);
         code02 = (TextView) view_02.findViewById(R.id.code);
         flag1 = (ImageView) view_01.findViewById(R.id.country_flag);
         flag2 = (ImageView) view_02.findViewById(R.id.country_flag);
+        btn_exchange = (Button)findViewById(R.id.btn_01);
         String pref_name01 = preferences.getString("name1", null);
         String pref_code01 = preferences.getString("code1", null);
         String pref_name02 = preferences.getString("name2", null);
@@ -67,6 +97,9 @@ public class CurrencyActivity extends Activity {
             code01.setText(pref_code01);
             flag1.setImageResource(getResourceByReflect(pref_code01.toLowerCase()));
         }
+        count01.setFocusable(true);
+        count01.setFocusableInTouchMode(true);
+        count01.requestFocus();
     }
 
     private void setListeners() {
@@ -111,14 +144,37 @@ public class CurrencyActivity extends Activity {
                 return false;
             }
         });
+        btn_exchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String exchangeResult = Utility.getRequest2(code01.getText().toString(), code02.getText().toString());
+                String url = "http://op.juhe.cn/onebox/exchange/currency" + HttpUtil.KEY
+                        + "&from=" + code01.getText().toString()
+                        + "&to=" + code02.getText().toString();//请求接口地址
+                HttpUtil.sendHttpRequest(url, new HttpCallbackListener() {
+                    @Override
+                    public void onFinish(String response) {
+                        String exchange = Utility.handleResponse(response);
+                        Message message = new Message();
+                        message.what = 0;
+                        message.obj = exchange;
+                        handler.sendMessage(message);
+                    }
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+            }
+        });
     }
 
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         initView();
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -171,9 +227,6 @@ public class CurrencyActivity extends Activity {
         return r_id;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
+
 
 }

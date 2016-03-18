@@ -12,9 +12,7 @@ import com.bloch1790.exchangerate.model.Country;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/2/25 0025.
- */
+
 public class CountryAdapter extends BaseAdapter {
 
     private List<Country> list;

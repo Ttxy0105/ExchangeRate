@@ -61,7 +61,6 @@ public class Pinyin4jUtil {
      * 汉字转换位汉语全拼，英文字符不变，特殊字符丢失
      * 支持多音字，生成方式如（重当参:zhongdangcen,zhongdangcan,chongdangcen
      * ,chongdangshen,zhongdangshen,chongdangcan）
-     *
      * @param chines 汉字
      * @return 拼音
      */
